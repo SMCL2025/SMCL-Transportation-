@@ -5,195 +5,281 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SMCL Vehicle Booking</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
     body {
-      font-family: Arial, sans-serif;
-      background: #f4f4f4;
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f4f4;
       color: #333;
     }
 
-    .navbar {
-      background-color: #2c3e50;
+    header {
+      background-color: #004d40;
+      color: #fff;
+      padding: 1em 2em;
       display: flex;
       justify-content: space-between;
-      padding: 1rem 2rem;
       align-items: center;
     }
 
     .logo {
-      color: #fff;
+      font-size: 1.5em;
+      font-weight: bold;
     }
 
-    .nav-links {
+    nav ul {
       list-style: none;
       display: flex;
-      gap: 1.5rem;
+      gap: 1em;
+      margin: 0;
+      padding: 0;
     }
 
-    .nav-links a {
-      color: #fff;
+    nav a {
+      color: white;
       text-decoration: none;
+      font-weight: bold;
     }
 
     .hero {
-      height: 90vh;
-      background: linear-gradient(to right, #1abc9c, #16a085);
+      position: relative;
+      background: url('https://source.unsplash.com/1600x600/?mining') no-repeat center center/cover;
+      height: 400px;
+      color: white;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
-      color: white;
-      padding: 2rem;
     }
 
-    .hero-content h2 {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: rgba(0, 0, 0, 0.6);
+      z-index: 1;
     }
 
-    .hero-content p {
-      font-size: 1.2rem;
-      margin-bottom: 2rem;
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 2em;
     }
 
-    .btn {
-      background-color: #e67e22;
-      color: white;
-      padding: 0.8rem 2rem;
-      text-decoration: none;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
+    .hero h1 {
+      font-size: 2.5em;
+      margin-bottom: 0.5em;
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
+    }
+
+    .hero p {
+      font-size: 1.2em;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
     }
 
     .section {
-      padding: 3rem 1rem;
-      max-width: 600px;
-      margin: auto;
-      background: white;
+      padding: 2em;
+      background-color: white;
+      margin: 1em auto;
+      max-width: 900px;
       border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      margin-bottom: 2rem;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
 
     .section h2 {
-      text-align: center;
-      margin-bottom: 1.5rem;
+      color: #004d40;
     }
 
-    .form-group {
-      margin-bottom: 1rem;
+    a {
+      color: #00796b;
+      text-decoration: none;
     }
 
-    .form-group label {
-      display: block;
-      margin-bottom: 0.5rem;
+    a:hover {
+      text-decoration: underline;
     }
 
-    .form-group input,
-    .form-group select {
-      width: 100%;
-      padding: 0.8rem;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-    }
-
-    .footer {
-      background-color: #2c3e50;
+    footer {
+      background-color: #004d40;
       color: white;
       text-align: center;
-      padding: 1rem;
+      padding: 1em 0;
+      margin-top: 2em;
     }
 
-    .confirmation {
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    th, td {
+      border: 1px solid #aaa;
+      padding: 10px;
       text-align: center;
     }
 
-    @media (max-width: 768px) {
-      .nav-links {
-        flex-direction: column;
-        gap: 0.5rem;
-      }
+    th {
+      background-color: #f2f2f2;
+    }
 
-      .hero-content h2 {
-        font-size: 1.8rem;
-      }
+    .available {
+      background-color: #c8f7c5;
+      color: #2e7d32;
+      font-weight: bold;
+    }
 
-      .btn {
-        padding: 0.6rem 1.5rem;
-      }
+    .unavailable {
+      background-color: #ffcdd2;
+      color: #c62828;
+      font-weight: bold;
+    }
+
+    form {
+      display: grid;
+      gap: 1rem;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 0.8rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .btn {
+      background-color: #004d40;
+      color: white;
+      padding: 0.8rem 1.5rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
 
-  <!-- Navbar -->
   <header>
-    <nav class="navbar">
-      <h1 class="logo">SMCL Booking</h1>
-      <ul class="nav-links">
+    <div class="logo">SMCL</div>
+    <nav>
+      <ul>
         <li><a href="#home">Home</a></li>
-        <li><a href="#booking">Book</a></li>
-        <li><a href="#confirmation">Confirm</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#booking">Booking</a></li>
+        <li><a href="#tracking">Tracking</a></li>
+        <li><a href="#contact">Contact</a></li>
       </ul>
     </nav>
   </header>
 
-  <!-- Home Section -->
   <section id="home" class="hero">
     <div class="hero-content">
-      <h2>Your Ride Starts Here</h2>
-      <p>Book your vehicle effortlessly with SMCL.</p>
-      <a href="#booking" class="btn">Book Now</a>
+      <h1>Welcome to State Mining Corporation Limited</h1>
+      <p>Your source for sustainable high-quality mineral resources in Bhutan.</p>
     </div>
   </section>
 
-  <!-- Booking Form Section -->
+  <section id="about" class="section">
+    <h2>About Us</h2>
+    <p>State Mining Corporation Limited offers minerals like coal, gypsum, dolomite and quartzite. Supporting industries with sustainable high quality resources.</p>
+    <h3>Vision</h3>
+    <p>Be the leading company in sustainable minerals resources management to distribute the national wealth to the people of Bhutan</p>
+    <h3>Mission</h3>
+    <p>Explore and develop mineral resources in a responsible manner for inter-generational equity</p>
+  </section>
+
+  <section id="services" class="section">
+    <h2>What Our Website Does</h2>
+    <ul>
+      <li>Book and schedule vehicles for transportation of minerals</li>
+      <li>Track current vehicle schedules and availability</li>
+      <li>Receive alerts and provide feedback</li>
+    </ul>
+  </section>
+
   <section id="booking" class="section">
-    <h2>Book Your Vehicle</h2>
-    <form onsubmit="event.preventDefault(); document.getElementById('confirmation').scrollIntoView({behavior:'smooth'});">
-      <div class="form-group">
-        <label for="name">Full Name</label>
-        <input type="text" id="name" required />
-      </div>
-      <div class="form-group">
-        <label for="email">Email Address</label>
-        <input type="email" id="email" required />
-      </div>
-      <div class="form-group">
-        <label for="vehicle">Select Vehicle</label>
-        <select id="vehicle" required>
-          <option value="">-- Select Vehicle --</option>
-          <option value="Sedan">Sedan</option>
-          <option value="SUV">SUV</option>
-          <option value="Van">Van</option>
-          <option value="Truck">Truck</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="date">Booking Date</label>
-        <input type="date" id="date" required />
-      </div>
-      <button type="submit" class="btn">Confirm Booking</button>
+    <h2>Vehicle Booking Form</h2>
+    <form>
+      <label for="name">Full Name</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="email">Email Address</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="phone">Contact Number</label>
+      <input type="tel" id="phone" name="phone" required>
+
+      <label for="pickup">Pickup Location</label>
+      <input type="text" id="pickup" name="pickup" required>
+
+      <label for="dropoff">Drop-off Location</label>
+      <input type="text" id="dropoff" name="dropoff" required>
+
+      <label for="vehicle">Select Vehicle</label>
+      <select id="vehicle" name="vehicle">
+        <option value="">-- Select --</option>
+        <option value="van">Van</option>
+        <option value="truck">Truck</option>
+        <option value="pickup">Pickup</option>
+      </select>
+
+      <label for="service">Type of Service</label>
+      <select id="service" name="service">
+        <option value="one-way">One-way</option>
+        <option value="round-trip">Round-trip</option>
+      </select>
+
+      <label for="passengers">Number of Passengers</label>
+      <input type="number" id="passengers" name="passengers" min="1" max="20">
+
+      <label for="date">Booking Date</label>
+      <input type="date" id="date" name="date" required>
+
+      <label for="notes">Special Notes</label>
+      <textarea id="notes" name="notes" rows="3"></textarea>
+
+      <button type="submit" class="btn">Submit Booking</button>
     </form>
   </section>
 
-  <!-- Confirmation Section -->
-  <section id="confirmation" class="section confirmation">
-    <h2>Thank You!</h2>
-    <p>Your booking has been successfully submitted.</p>
-    <p>We will contact you shortly with more details.</p>
-    <a href="#home" class="btn">Return to Home</a>
+  <section id="tracking" class="section">
+    <h2>Track Vehicle Availability</h2>
+    <table>
+      <tr>
+        <th>Vehicle</th>
+        <th>Monday</th>
+        <th>Tuesday</th>
+        <th>Wednesday</th>
+        <th>Thursday</th>
+        <th>Friday</th>
+      </tr>
+      <tr>
+        <td>Van 1</td>
+        <td class="available">Available</td>
+        <td class="unavailable">Not Available</td>
+        <td class="available">Available</td>
+        <td class="available">Available</td>
+        <td class="unavailable">Not Available</td>
+      </tr>
+      <tr>
+        <td>Truck 2</td>
+        <td class="unavailable">Not Available</td>
+        <td class="available">Available</td>
+        <td class="available">Available</td>
+        <td class="unavailable">Not Available</td>
+        <td class="available">Available</td>
+      </tr>
+    </table>
   </section>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <p>© 2025 SMCL Vehicle Booking</p>
+  <section id="contact" class="section">
+    <h2>Contact Us</h2>
+    <p>Phone: 17754628</p>
+    <p>Email: <a href="mailto:smcl@smcl.bt">smcl@smcl.bt</a></p>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 State Mining Corporation Limited</p>
   </footer>
 
 </body>
