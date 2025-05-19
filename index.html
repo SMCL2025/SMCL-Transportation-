@@ -1,137 +1,80 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SMCL Vehicle Booking & Tracking</title>
+  <title>SMCL Vehicle Booking</title>
   <style>
+    /* Base Reset */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Inter', sans-serif;
       background-color: #f4f4f4;
       color: #333;
+      line-height: 1.6;
     }
 
     header {
-      background-color: #004d40;
+      background-color: #1A4D2E;
       color: #fff;
-      padding: 1em 2em;
+      padding: 1rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
 
     .logo {
-      font-size: 1.5em;
+      font-size: 1.8rem;
       font-weight: bold;
     }
 
     nav ul {
-      list-style: none;
       display: flex;
-      gap: 1em;
-      margin: 0;
-      padding: 0;
+      list-style: none;
+      gap: 1.5rem;
     }
 
     nav a {
-      color: white;
+      color: #fff;
       text-decoration: none;
-      font-weight: bold;
+      font-weight: 600;
     }
 
     .hero {
       position: relative;
-      background: url('https://source.unsplash.com/1600x600/?mining') no-repeat center center/cover;
       height: 400px;
-      color: white;
+      background: url('https://source.unsplash.com/1600x600/?mining') no-repeat center center/cover;
       display: flex;
-      align-items: center;
       justify-content: center;
+      align-items: center;
       text-align: center;
+      color: #fff;
     }
 
     .hero::before {
-      content: "";
+      content: '';
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
-      background-color: rgba(0, 0, 0, 0.6);
-      z-index: 1;
+      background: rgba(0, 0, 0, 0.5);
     }
 
     .hero-content {
       position: relative;
       z-index: 2;
-      padding: 2em;
     }
 
-    .hero h1 {
-      font-size: 2.5em;
-      margin-bottom: 0.5em;
-      text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
-    }
-
-    .hero p {
-      font-size: 1.2em;
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
-    }
-
-    .section {
-      padding: 2em;
-      background-color: white;
-      margin: 1em auto;
+    section {
+      padding: 2rem;
       max-width: 900px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      margin: auto;
+      background: #fff;
+      margin-top: 1rem;
+      border-radius: 12px;
     }
 
-    .section h2 {
-      color: #004d40;
-    }
-
-    a {
-      color: #00796b;
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    footer {
-      background-color: #004d40;
-      color: white;
-      text-align: center;
-      padding: 1em 0;
-      margin-top: 2em;
-    }
-
-    table {
-      border-collapse: collapse;
-      width: 100%;
-      margin-top: 20px;
-    }
-
-    th, td {
-      border: 1px solid #aaa;
-      padding: 10px;
-      text-align: center;
-    }
-
-    th {
-      background-color: #f2f2f2;
-    }
-
-    .available {
-      background-color: #c8f7c5;
-      color: #2e7d32;
-      font-weight: bold;
-    }
-
-    .unavailable {
-      background-color: #ffcdd2;
-      color: #c62828;
-      font-weight: bold;
+    h2 {
+      color: #1A4D2E;
+      margin-bottom: 1rem;
     }
 
     form {
@@ -140,34 +83,53 @@
     }
 
     input, select, textarea {
-      width: 100%;
-      padding: 0.8rem;
+      padding: 0.75rem;
       border: 1px solid #ccc;
-      border-radius: 5px;
+      border-radius: 8px;
     }
 
     .btn {
-      background-color: #004d40;
-      color: white;
-      padding: 0.8rem 1.5rem;
+      background: #1A4D2E;
+      color: #fff;
+      padding: 0.75rem;
       border: none;
-      border-radius: 5px;
+      border-radius: 8px;
       cursor: pointer;
+      font-weight: bold;
     }
 
-    /* Map container styling */
-    #map {
-      height: 500px;
+    table {
       width: 100%;
-      max-width: 900px;
-      margin: 20px auto 40px auto;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+
+    th, td {
+      padding: 0.75rem;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+
+    .available { background-color: #d0f0c0; color: #2e7d32; font-weight: bold; }
+    .unavailable { background-color: #fbcaca; color: #c62828; font-weight: bold; }
+
+    #map {
+      height: 400px;
+      width: 100%;
+      margin-top: 1rem;
       border-radius: 10px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    }
+
+    footer {
+      background-color: #1A4D2E;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 2rem;
     }
   </style>
 </head>
 <body>
-
   <header>
     <div class="logo">SMCL</div>
     <nav>
@@ -184,77 +146,58 @@
 
   <section id="home" class="hero">
     <div class="hero-content">
-      <h1>Welcome to State Mining Corporation Limited</h1>
-      <p>Your source for sustainable high-quality mineral resources in Bhutan.</p>
+      <h1>Welcome to SMCL</h1>
+      <p>Sustainable transportation for mineral logistics in Bhutan</p>
     </div>
   </section>
 
-  <section id="about" class="section">
+  <section id="about">
     <h2>About Us</h2>
-    <p>State Mining Corporation Limited offers minerals like coal, gypsum, dolomite and quartzite. Supporting industries with sustainable high quality resources.</p>
-    <h3>Vision</h3>
-    <p>Be the leading company in sustainable minerals resources management to distribute the national wealth to the people of Bhutan</p>
-    <h3>Mission</h3>
-    <p>Explore and develop mineral resources in a responsible manner for inter-generational equity</p>
+    <p>State Mining Corporation Limited offers sustainable, high-quality mineral transportation services across Bhutan.</p>
   </section>
 
-  <section id="services" class="section">
-    <h2>What Our Website Does</h2>
+  <section id="services">
+    <h2>Services</h2>
     <ul>
-      <li>Book and schedule vehicles for transportation of minerals</li>
-      <li>Track current vehicle schedules and availability</li>
-      <li>Receive alerts and provide feedback</li>
+      <li>Vehicle booking for mineral transport</li>
+      <li>Real-time vehicle tracking</li>
+      <li>Custom pickup and drop-off scheduling</li>
     </ul>
   </section>
 
-  <section id="booking" class="section">
-    <h2>Vehicle Booking Form</h2>
+  <section id="booking">
+    <h2>Vehicle Booking</h2>
     <form>
-      <label for="name">Full Name</label>
-      <input type="text" id="name" name="name" required>
-
-      <label for="email">Email Address</label>
-      <input type="email" id="email" name="email" required>
-
-      <label for="phone">Contact Number</label>
-      <input type="tel" id="phone" name="phone" required>
-
-      <label for="pickup">Pickup Location</label>
-      <input type="text" id="pickup" name="pickup" required>
-
-      <label for="dropoff">Drop-off Location</label>
-      <input type="text" id="dropoff" name="dropoff" required>
-
-      <label for="vehicle">Select Vehicle</label>
-      <select id="vehicle" name="vehicle">
-        <option value="">-- Select --</option>
-        <option value="van">Van</option>
-        <option value="truck">Truck</option>
-        <option value="pickup">Pickup</option>
+      <input type="text" placeholder="Full Name" required>
+      <input type="email" placeholder="Email Address" required>
+      <input type="tel" placeholder="Phone Number" required>
+      <input type="text" placeholder="Pickup Location" required>
+      <input type="text" placeholder="Drop-off Location" required>
+      <select required>
+        <option value="">Select Vehicle</option>
+        <option>Van</option>
+        <option>Truck</option>
+        <option>Pickup</option>
       </select>
-
-      <label for="service">Type of Service</label>
-      <select id="service" name="service">
-        <option value="one-way">One-way</option>
-        <option value="round-trip">Round-trip</option>
+      <select required>
+        <option value="">Type of Service</option>
+        <option>One-way</option>
+        <option>Round-trip</option>
       </select>
-
-      <label for="passengers">Number of Passengers</label>
-      <input type="number" id="passengers" name="passengers" min="1" max="20">
-
-      <label for="date">Booking Date</label>
-      <input type="date" id="date" name="date" required>
-
-      <label for="notes">Special Notes</label>
-      <textarea id="notes" name="notes" rows="3"></textarea>
-
+      <input type="number" placeholder="Passengers" min="1" max="20">
+      <input type="date" required>
+      <textarea rows="3" placeholder="Special Notes"></textarea>
       <button type="submit" class="btn">Submit Booking</button>
     </form>
   </section>
 
-  <section id="tracking" class="section">
-    <h2>Track Vehicle Availability & GPS</h2>
+  <section id="tracking">
+    <h2>Track Vehicles</h2>
+    <div id="map"></div>
+  </section>
 
+  <section>
+    <h2>Availability Table</h2>
     <table>
       <tr>
         <th>Vehicle</th>
@@ -273,4 +216,47 @@
         <td class="unavailable">Not Available</td>
       </tr>
       <tr>
-        <td>
+        <td>Truck 2</td>
+        <td class="unavailable">Not Available</td>
+        <td class="available">Available</td>
+        <td class="available">Available</td>
+        <td class="unavailable">Not Available</td>
+        <td class="available">Available</td>
+      </tr>
+    </table>
+  </section>
+
+  <section id="contact">
+    <h2>Contact Us</h2>
+    <p>Phone: 17754628</p>
+    <p>Email: <a href="mailto:smcl@smcl.bt">smcl@smcl.bt</a></p>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 State Mining Corporation Limited</p>
+  </footer>
+
+  <script>
+    function initMap() {
+      const map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 8,
+        center: { lat: 27.5, lng: 90.5 },
+      });
+
+      const vehicles = [
+        { name: "Van 1", lat: 27.492, lng: 89.640 },
+        { name: "Truck 2", lat: 27.567, lng: 90.714 },
+      ];
+
+      vehicles.forEach(v => {
+        new google.maps.Marker({
+          position: { lat: v.lat, lng: v.lng },
+          map,
+          title: v.name,
+        });
+      });
+    }
+  </script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&callback=initMap" async defer></script>
+</body>
+</html>
