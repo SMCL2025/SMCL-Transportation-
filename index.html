@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SMCL Vehicle Booking</title>
+  <title>SMCL Vehicle Booking & Tracking</title>
   <style>
     body {
       margin: 0;
@@ -154,6 +154,16 @@
       border-radius: 5px;
       cursor: pointer;
     }
+
+    /* Map container styling */
+    #map {
+      height: 500px;
+      width: 100%;
+      max-width: 900px;
+      margin: 20px auto 40px auto;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    }
   </style>
 </head>
 <body>
@@ -243,7 +253,8 @@
   </section>
 
   <section id="tracking" class="section">
-    <h2>Track Vehicle Availability</h2>
+    <h2>Track Vehicle Availability & GPS</h2>
+
     <table>
       <tr>
         <th>Vehicle</th>
@@ -262,25 +273,4 @@
         <td class="unavailable">Not Available</td>
       </tr>
       <tr>
-        <td>Truck 2</td>
-        <td class="unavailable">Not Available</td>
-        <td class="available">Available</td>
-        <td class="available">Available</td>
-        <td class="unavailable">Not Available</td>
-        <td class="available">Available</td>
-      </tr>
-    </table>
-  </section>
-
-  <section id="contact" class="section">
-    <h2>Contact Us</h2>
-    <p>Phone: 17754628</p>
-    <p>Email: <a href="mailto:smcl@smcl.bt">smcl@smcl.bt</a></p>
-  </section>
-
-  <footer>
-    <p>&copy; 2025 State Mining Corporation Limited</p>
-  </footer>
-
-</body>
-</html>
+        <td>
