@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SMCL Vehicle Booking</title>
   <style>
     body {
@@ -11,6 +11,7 @@
       background-color: #f4f4f4;
       color: #333;
     }
+
     header {
       background-color: #004d40;
       color: #fff;
@@ -19,10 +20,12 @@
       justify-content: space-between;
       align-items: center;
     }
+
     .logo {
       font-size: 1.5em;
       font-weight: bold;
     }
+
     nav ul {
       list-style: none;
       display: flex;
@@ -30,11 +33,13 @@
       margin: 0;
       padding: 0;
     }
+
     nav a {
       color: white;
       text-decoration: none;
       font-weight: bold;
     }
+
     .hero {
       position: relative;
       background: url('https://source.unsplash.com/1600x600/?mining') no-repeat center center/cover;
@@ -45,6 +50,7 @@
       justify-content: center;
       text-align: center;
     }
+
     .hero::before {
       content: "";
       position: absolute;
@@ -52,20 +58,24 @@
       background-color: rgba(0, 0, 0, 0.6);
       z-index: 1;
     }
+
     .hero-content {
       position: relative;
       z-index: 2;
       padding: 2em;
     }
+
     .hero h1 {
       font-size: 2.5em;
       margin-bottom: 0.5em;
       text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
     }
+
     .hero p {
       font-size: 1.2em;
       text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
     }
+
     .section {
       padding: 2em;
       background-color: white;
@@ -74,16 +84,20 @@
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
+
     .section h2 {
       color: #004d40;
     }
+
     a {
       color: #00796b;
       text-decoration: none;
     }
+
     a:hover {
       text-decoration: underline;
     }
+
     footer {
       background-color: #004d40;
       color: white;
@@ -91,39 +105,47 @@
       padding: 1em 0;
       margin-top: 2em;
     }
+
     table {
       border-collapse: collapse;
       width: 100%;
       margin-top: 20px;
     }
+
     th, td {
       border: 1px solid #aaa;
       padding: 10px;
       text-align: center;
     }
+
     th {
       background-color: #f2f2f2;
     }
+
     .available {
       background-color: #c8f7c5;
       color: #2e7d32;
       font-weight: bold;
     }
+
     .unavailable {
       background-color: #ffcdd2;
       color: #c62828;
       font-weight: bold;
     }
+
     form {
       display: grid;
       gap: 1rem;
     }
+
     input, select, textarea {
       width: 100%;
       padding: 0.8rem;
       border: 1px solid #ccc;
       border-radius: 5px;
     }
+
     .btn {
       background-color: #004d40;
       color: white;
@@ -132,21 +154,19 @@
       border-radius: 5px;
       cursor: pointer;
     }
-    .message {
-      padding: 1em;
-      margin-bottom: 1em;
-      border-radius: 5px;
-      font-weight: bold;
-    }
-    .success {
-      background-color: #c8f7c5;
-      color: #2e7d32;
-    }
-    .error {
-      background-color: #ffcdd2;
-      color: #c62828;
+
+    #map {
+      height: 400px;
+      margin-top: 20px;
+      border-radius: 10px;
     }
   </style>
+
+  <!-- Leaflet CSS -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet/dist/leaflet.css"
+  />
 </head>
 <body>
 
@@ -191,66 +211,114 @@
 
   <section id="booking" class="section">
     <h2>Vehicle Booking Form</h2>
-
-    <?php
-    // Show message if set
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-      $name = htmlspecialchars($_POST['name'] ?? '');
-      $email = htmlspecialchars($_POST['email'] ?? '');
-      $phone = htmlspecialchars($_POST['phone'] ?? '');
-      $pickup = htmlspecialchars($_POST['pickup'] ?? '');
-      $dropoff = htmlspecialchars($_POST['dropoff'] ?? '');
-      $vehicle = htmlspecialchars($_POST['vehicle'] ?? '');
-      $service = htmlspecialchars($_POST['service'] ?? '');
-      $passengers = intval($_POST['passengers'] ?? 0);
-      $date = htmlspecialchars($_POST['date'] ?? '');
-      $notes = htmlspecialchars($_POST['notes'] ?? '');
-
-      $error = '';
-
-      if (!$name || !$email || !$phone || !$pickup || !$dropoff || !$vehicle || !$service || !$date) {
-        $error = 'Please fill in all required fields.';
-      }
-
-      if ($error) {
-        echo '<div class="message error">' . $error . '</div>';
-      } else {
-        // Save booking to CSV
-        $file = fopen("bookings.csv", "a");
-        if ($file) {
-          fputcsv($file, [$name, $email, $phone, $pickup, $dropoff, $vehicle, $service, $passengers, $date, $notes, date('Y-m-d H:i:s')]);
-          fclose($file);
-          echo '<div class="message success">Booking received successfully! Thank you, ' . $name . '.</div>';
-        } else {
-          echo '<div class="message error">Failed to save booking. Please try again later.</div>';
-        }
-      }
-    }
-    ?>
-
-    <form action="#booking" method="POST" novalidate>
-      <label for="name">Full Name *</label>
+    <form>
+      <label for="name">Full Name</label>
       <input type="text" id="name" name="name" required>
 
-      <label for="email">Email Address *</label>
+      <label for="email">Email Address</label>
       <input type="email" id="email" name="email" required>
 
-      <label for="phone">Contact Number *</label>
+      <label for="phone">Contact Number</label>
       <input type="tel" id="phone" name="phone" required>
 
-      <label for="pickup">Pickup Location *</label>
+      <label for="pickup">Pickup Location</label>
       <input type="text" id="pickup" name="pickup" required>
 
-      <label for="dropoff">Drop-off Location *</label>
+      <label for="dropoff">Drop-off Location</label>
       <input type="text" id="dropoff" name="dropoff" required>
 
-      <label for="vehicle">Select Vehicle *</label>
-      <select id="vehicle" name="vehicle" required>
+      <label for="vehicle">Select Vehicle</label>
+      <select id="vehicle" name="vehicle">
         <option value="">-- Select --</option>
         <option value="van">Van</option>
         <option value="truck">Truck</option>
         <option value="pickup">Pickup</option>
       </select>
 
-      <label for="service">Type of Service *</label>
-      <select id="service" name="service
+      <label for="service">Type of Service</label>
+      <select id="service" name="service">
+        <option value="one-way">One-way</option>
+        <option value="round-trip">Round-trip</option>
+      </select>
+
+      <label for="passengers">Number of Passengers</label>
+      <input type="number" id="passengers" name="passengers" min="1" max="20">
+
+      <label for="date">Booking Date</label>
+      <input type="date" id="date" name="date" required>
+
+      <label for="notes">Special Notes</label>
+      <textarea id="notes" name="notes" rows="3"></textarea>
+
+      <button type="submit" class="btn">Submit Booking</button>
+    </form>
+  </section>
+
+  <section id="tracking" class="section">
+    <h2>Track Vehicle Availability</h2>
+    <table>
+      <tr>
+        <th>Vehicle</th>
+        <th>Monday</th>
+        <th>Tuesday</th>
+        <th>Wednesday</th>
+        <th>Thursday</th>
+        <th>Friday</th>
+      </tr>
+      <tr>
+        <td>Van 1</td>
+        <td class="available">Available</td>
+        <td class="unavailable">Not Available</td>
+        <td class="available">Available</td>
+        <td class="available">Available</td>
+        <td class="unavailable">Not Available</td>
+      </tr>
+      <tr>
+        <td>Truck 2</td>
+        <td class="unavailable">Not Available</td>
+        <td class="available">Available</td>
+        <td class="available">Available</td>
+        <td class="unavailable">Not Available</td>
+        <td class="available">Available</td>
+      </tr>
+    </table>
+
+    <h2>Vehicle Location Map</h2>
+    <div id="map"></div>
+  </section>
+
+  <section id="contact" class="section">
+    <h2>Contact Us</h2>
+    <p>Phone: 17754628</p>
+    <p>Email: <a href="mailto:smcl@smcl.bt">smcl@smcl.bt</a></p>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 State Mining Corporation Limited</p>
+  </footer>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    // Initialize map centered in Bhutan
+    var map = L.map('map').setView([27.4728, 89.6395], 8);
+
+    // Load OpenStreetMap tiles
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Example vehicle locations
+    var vehicles = [
+      { name: 'Van 1', coords: [27.4728, 89.6395] },  // Thimphu
+      { name: 'Truck 2', coords: [27.5142, 89.6226] } // Near Thimphu
+    ];
+
+    // Add markers for vehicles
+    vehicles.forEach(vehicle => {
+      L.marker(vehicle.coords).addTo(map).bindPopup(vehicle.name);
+    });
+  </script>
+
+</body>
+</html>
