@@ -3,7 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SMCL Portfolio</title>
+  <title>SMCL Portfolio with GPS Tracking</title>
+
+  <!-- Leaflet CSS -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-sA+eCHTrZTLLC1YkZbVv10GHY0chSpk3hrnvCJDPRXQ="
+    crossorigin=""
+  />
   <style>
     body {
       margin: 0;
@@ -136,9 +144,17 @@
       font-weight: bold;
     }
 
-    /* Make Vehicle Number and Driver Name cells non-clickable */
+    /* Non-clickable Vehicle Number and Driver Name cells */
     td:nth-child(2), td:nth-child(3) {
       cursor: default;
+    }
+
+    /* Map container styles */
+    #map {
+      height: 400px;
+      margin-top: 2em;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
     }
   </style>
 </head>
@@ -264,6 +280,12 @@
     </table>
   </section>
 
+  <!-- Map Section -->
+  <section id="map-section" class="section">
+    <h2>Live Vehicle GPS Tracking (Bhutan)</h2>
+    <div id="map"></div>
+  </section>
+
   <section id="feedback" class="section">
     <h2>Feedback</h2>
     <p><a href="https://forms.gle/xiRDxHdPwuLhmVZc8" target="_blank">Give us your feedback via Google Form</a></p>
@@ -272,4 +294,19 @@
   <section id="contact" class="section">
     <h2>Contact Us</h2>
     <p>Phone: 17754628</p>
-    <p>Email
+    <p>Email: <a href="mailto:smcl@smcl.bt">smcl@smcl.bt</a></p>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 State Mining Corporation Limited</p>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Toggle availability on click
+      const cells = document.querySelectorAll('td.available, td.unavailable');
+      cells.forEach(cell => {
+        cell.addEventListener('click', () => {
+          if (cell.classList.contains('available')) {
+            cell.classList.remove('available');
+            cell.class
