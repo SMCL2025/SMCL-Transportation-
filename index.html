@@ -2,17 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>SMCL Portfolio with GPS Tracking</title>
-
-  <!-- Leaflet CSS -->
-  <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    integrity="sha256-o9N1j6JQMKxn1+N8LUUGfP1pNw+b/kp40sCIlKmq7EY="
-    crossorigin=""
-  />
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SMCL Portfolio</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <style>
     body {
       margin: 0;
@@ -145,13 +137,11 @@
       font-weight: bold;
     }
 
-    /* Map container must have a height */
     #map {
       height: 400px;
-      max-width: 900px;
-      margin: 1em auto;
+      width: 100%;
+      margin-top: 20px;
       border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
   </style>
 </head>
@@ -164,8 +154,6 @@
         <li><a href="#home">Home</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#services">Services</a></li>
-        <li><a href="#tracking">Tracking</a></li>
-        <li><a href="#feedback">Feedback</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
     </nav>
@@ -208,8 +196,6 @@
     <table>
       <tr>
         <th>Vehicle</th>
-        <th>Driver</th>
-        <th>Vehicle Number</th>
         <th>Monday</th>
         <th>Tuesday</th>
         <th>Wednesday</th>
@@ -218,8 +204,6 @@
       </tr>
       <tr>
         <td>Van 1</td>
-        <td>Pema</td>
-        <td>BP-0B-1234</td>
         <td class="available">Available</td>
         <td class="unavailable">Not Available</td>
         <td class="available">Available</td>
@@ -228,36 +212,73 @@
       </tr>
       <tr>
         <td>Truck 2</td>
-        <td>Tshring</td>
-        <td>BP-1B-3456</td>
         <td class="unavailable">Not Available</td>
         <td class="available">Available</td>
         <td class="available">Available</td>
         <td class="unavailable">Not Available</td>
         <td class="available">Available</td>
       </tr>
-      <tr>
-        <td>Truck 3</td>
-        <td>Pelden</td>
-        <td>BP-2B-9087</td>
-        <td class="available">Available</td>
-        <td class="available">Available</td>
-        <td class="unavailable">Not Available</td>
-        <td class="available">Available</td>
-        <td class="available">Available</td>
-      </tr>
-      <tr>
-        <td>Van 4</td>
-        <td>Sonam</td>
-        <td>BP-3B-4567</td>
-        <td class="unavailable">Not Available</td>
-        <td class="available">Available</td>
-        <td class="available">Available</td>
-        <td class="available">Available</td>
-        <td class="unavailable">Not Available</td>
-      </tr>
-      <tr>
-        <td>Truck 5</td>
-        <td>Yangchen</td>
-        <td>BP-3B-3456</td>
-        <td class="available">Available</
+    </table>
+
+    <h3>Live Vehicle Location</h3>
+    <div id="map"></div>
+  </section>
+
+  <section id="feedback" class="section">
+    <h2>Feedback</h2>
+    <p><a href="https://forms.gle/xiRDxHdPwuLhmVZc8" target="_blank">Give us your feedback via Google Form</a></p>
+  </section>
+
+  <section id="contact" class="section">
+    <h2>Contact Us</h2>
+    <p>Phone: 17754628</p>
+    <p>Email: <a href="mailto:smcl@smcl.bt">smcl@smcl.bt</a></p>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 State Mining Corporation Limited</p>
+  </footer>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const cells = document.querySelectorAll('td.available, td.unavailable');
+      cells.forEach(cell => {
+        cell.addEventListener('click', () => {
+          if (cell.classList.contains('available')) {
+            cell.classList.remove('available');
+            cell.classList.add('unavailable');
+            cell.textContent = 'Not Available';
+          } else {
+            cell.classList.remove('unavailable');
+            cell.classList.add('available');
+            cell.textContent = 'Available';
+          }
+        });
+      });
+
+      // Leaflet Map
+      const map = L.map('map').setView([27.5, 90.4], 7);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors'
+      }).addTo(map);
+
+      // Replace the fetch URL with your own Traccar API endpoint (or a proxy)
+      fetch('https://example.com/api/positions')
+        .then(response => response.json())
+        .then(data => {
+          data.forEach(vehicle => {
+            const lat = vehicle.latitude;
+            const lon = vehicle.longitude;
+            const marker = L.marker([lat, lon]).addTo(map);
+            marker.bindPopup(`<strong>${vehicle.name || 'Vehicle'}</strong><br>Lat: ${lat}<br>Lon: ${lon}`);
+          });
+        })
+        .catch(err => {
+          console.error('Error fetching vehicle positions:', err);
+        });
+    });
+  </script>
+
+</body>
+</html>
