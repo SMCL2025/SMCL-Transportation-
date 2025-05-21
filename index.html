@@ -9,10 +9,10 @@
   <link
     rel="stylesheet"
     href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    integrity="sha256-sA+oY3n8gyu7tkOir64yqBvqpS64qv1mquVprj4o+GU="
+    integrity="sha256-o9N1j6JQMKxn1+N8LUUGfP1pNw+b/kp40sCIlKmq7EY="
     crossorigin=""
   />
-  
+
   <style>
     body {
       margin: 0;
@@ -145,11 +145,11 @@
       font-weight: bold;
     }
 
-    /* Leaflet map styles */
+    /* Map container must have a height */
     #map {
       height: 400px;
-      width: 100%;
-      margin-top: 20px;
+      max-width: 900px;
+      margin: 1em auto;
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
@@ -164,6 +164,8 @@
         <li><a href="#home">Home</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#services">Services</a></li>
+        <li><a href="#tracking">Tracking</a></li>
+        <li><a href="#feedback">Feedback</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
     </nav>
@@ -206,6 +208,8 @@
     <table>
       <tr>
         <th>Vehicle</th>
+        <th>Driver</th>
+        <th>Vehicle Number</th>
         <th>Monday</th>
         <th>Tuesday</th>
         <th>Wednesday</th>
@@ -213,7 +217,9 @@
         <th>Friday</th>
       </tr>
       <tr>
-        <td>Van 1 (Driver: Pema, Number: BP-0B-1234)</td>
+        <td>Van 1</td>
+        <td>Pema</td>
+        <td>BP-0B-1234</td>
         <td class="available">Available</td>
         <td class="unavailable">Not Available</td>
         <td class="available">Available</td>
@@ -221,56 +227,37 @@
         <td class="unavailable">Not Available</td>
       </tr>
       <tr>
-        <td>Truck 2 (Driver: Tshering, Number: BP-1B-3456)</td>
+        <td>Truck 2</td>
+        <td>Tshring</td>
+        <td>BP-1B-3456</td>
         <td class="unavailable">Not Available</td>
-        <td class="unavailable">Not Available</td>
-        <td class="available">Available</td>
-        <td class="unavailable">Not Available</td>
-        <td class="available">Available</td>
-      </tr>
-      <tr>
-        <td>Van 3 (Driver: Pelden, Number: BP-2B-9087)</td>
-        <td class="available">Available</td>
-        <td class="available">Available</td>
-        <td class="unavailable">Not Available</td>
-        <td class="available">Available</td>
-        <td class="available">Available</td>
-      </tr>
-      <tr>
-        <td>Truck 4 (Driver: Sonam, Number: BP-3B-4567)</td>
-        <td class="unavailable">Not Available</td>
-        <td class="available">Available</td>
-        <td class="available">Available</td>
-        <td class="unavailable">Not Available</td>
-        <td class="unavailable">Not Available</td>
-      </tr>
-      <tr>
-        <td>Van 5 (Driver: Yangchen, Number: BP-3B-3456)</td>
-        <td class="available">Available</td>
         <td class="available">Available</td>
         <td class="available">Available</td>
         <td class="unavailable">Not Available</td>
         <td class="available">Available</td>
       </tr>
       <tr>
-        <td>Truck 6 (Driver: Tshering, Number: BP-4B-3456)</td>
+        <td>Truck 3</td>
+        <td>Pelden</td>
+        <td>BP-2B-9087</td>
+        <td class="available">Available</td>
         <td class="available">Available</td>
         <td class="unavailable">Not Available</td>
+        <td class="available">Available</td>
+        <td class="available">Available</td>
+      </tr>
+      <tr>
+        <td>Van 4</td>
+        <td>Sonam</td>
+        <td>BP-3B-4567</td>
+        <td class="unavailable">Not Available</td>
+        <td class="available">Available</td>
         <td class="available">Available</td>
         <td class="available">Available</td>
         <td class="unavailable">Not Available</td>
       </tr>
-    </table>
-
-    <!-- Map container -->
-    <div id="map"></div>
-  </section>
-
-  <section id="feedback" class="section">
-    <h2>Feedback</h2>
-    <p><a href="https://forms.gle/xiRDxHdPwuLhmVZc8" target="_blank">Give us your feedback via Google Form</a></p>
-  </section>
-
-  <section id="contact" class="section">
-    <h2>Contact Us</h2>
-    <p>Phone: 177546
+      <tr>
+        <td>Truck 5</td>
+        <td>Yangchen</td>
+        <td>BP-3B-3456</td>
+        <td class="available">Available</
