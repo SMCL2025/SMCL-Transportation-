@@ -4,10 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SMCL Portfolio</title>
-
-  <!-- Leaflet CSS for map -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-
   <style>
     body {
       margin: 0;
@@ -120,10 +116,12 @@
       border: 1px solid #aaa;
       padding: 10px;
       text-align: center;
+      cursor: pointer;
     }
 
     th {
       background-color: #f2f2f2;
+      cursor: default;
     }
 
     .available {
@@ -136,15 +134,6 @@
       background-color: #ffcdd2;
       color: #c62828;
       font-weight: bold;
-    }
-
-    /* New styles for map container */
-    #map {
-      height: 400px;
-      width: 100%;
-      border-radius: 10px;
-      box-shadow: 0 0 8px rgba(0,0,0,0.15);
-      margin-top: 1em;
     }
   </style>
 </head>
@@ -235,57 +224,27 @@
     <p>Email: <a href="mailto:smcl@smcl.bt">smcl@smcl.bt</a></p>
   </section>
 
-  <!-- New Vehicle Tracking Section -->
-  <section id="vehicle-tracking" class="section">
-    <h2>Live Vehicle GPS Tracking</h2>
-    <p>Tracking simulated vehicle movement on the map below:</p>
-    <div id="map"></div>
-  </section>
-
   <footer>
     <p>&copy; 2025 State Mining Corporation Limited</p>
   </footer>
 
-  <!-- Leaflet JS -->
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-
   <script>
-    // Initialize the map
-    const map = L.map('map').setView([27.3949, 89.6372], 13); // Thimphu, Bhutan coords
-
-    // Add OpenStreetMap tiles
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(map);
-
-    // Vehicle icon
-    const vehicleIcon = L.icon({
-      iconUrl: 'https://cdn-icons-png.flaticon.com/512/61/61212.png', // car icon
-      iconSize: [40, 40],
-      iconAnchor: [20, 20],
+    document.addEventListener('DOMContentLoaded', () => {
+      const cells = document.querySelectorAll('td.available, td.unavailable');
+      cells.forEach(cell => {
+        cell.addEventListener('click', () => {
+          if (cell.classList.contains('available')) {
+            cell.classList.remove('available');
+            cell.classList.add('unavailable');
+            cell.textContent = 'Not Available';
+          } else {
+            cell.classList.remove('unavailable');
+            cell.classList.add('available');
+            cell.textContent = 'Available';
+          }
+        });
+      });
     });
-
-    // Starting coordinates for vehicle
-    let vehicleLat = 27.3949;
-    let vehicleLng = 89.6372;
-
-    // Add marker for vehicle
-    const vehicleMarker = L.marker([vehicleLat, vehicleLng], {icon: vehicleIcon}).addTo(map)
-      .bindPopup('Vehicle is here').openPopup();
-
-    // Simulate vehicle movement every 3 seconds
-    function simulateMovement() {
-      const deltaLat = (Math.random() - 0.5) / 500;
-      const deltaLng = (Math.random() - 0.5) / 500;
-
-      vehicleLat += deltaLat;
-      vehicleLng += deltaLng;
-
-      vehicleMarker.setLatLng([vehicleLat, vehicleLng]);
-      map.panTo([vehicleLat, vehicleLng]);
-    }
-
-    setInterval(simulateMovement, 3000);
   </script>
 
 </body>
