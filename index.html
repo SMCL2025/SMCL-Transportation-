@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>SMCL Portfolio with GPS Tracking</title>
 
   <!-- Leaflet CSS -->
@@ -149,7 +149,7 @@
       cursor: default;
     }
 
-    /* Map container styles */
+    /* Map container */
     #map {
       height: 400px;
       margin-top: 2em;
@@ -199,7 +199,7 @@
 
   <section id="schedule" class="section">
     <h2>Schedule Your Vehicle</h2>
-    <p><a href="https://forms.gle/UomGZvKcZkmMK5j46" target="_blank">Click here to book your vehicle via Google Form</a></p>
+    <p><a href="https://forms.gle/UomGZvKcZkmMK5j46" target="_blank" rel="noopener noreferrer">Click here to book your vehicle via Google Form</a></p>
   </section>
 
   <section id="tracking" class="section">
@@ -272,41 +272,4 @@
         <td>BP-4B-3456</td>
         <td>Tshering</td>
         <td class="unavailable">Not Available</td>
-        <td class="available">Available</td>
-        <td class="available">Available</td>
-        <td class="unavailable">Not Available</td>
-        <td class="available">Available</td>
-      </tr>
-    </table>
-  </section>
-
-  <!-- Map Section -->
-  <section id="map-section" class="section">
-    <h2>Live Vehicle GPS Tracking (Bhutan)</h2>
-    <div id="map"></div>
-  </section>
-
-  <section id="feedback" class="section">
-    <h2>Feedback</h2>
-    <p><a href="https://forms.gle/xiRDxHdPwuLhmVZc8" target="_blank">Give us your feedback via Google Form</a></p>
-  </section>
-
-  <section id="contact" class="section">
-    <h2>Contact Us</h2>
-    <p>Phone: 17754628</p>
-    <p>Email: <a href="mailto:smcl@smcl.bt">smcl@smcl.bt</a></p>
-  </section>
-
-  <footer>
-    <p>&copy; 2025 State Mining Corporation Limited</p>
-  </footer>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      // Toggle availability on click
-      const cells = document.querySelectorAll('td.available, td.unavailable');
-      cells.forEach(cell => {
-        cell.addEventListener('click', () => {
-          if (cell.classList.contains('available')) {
-            cell.classList.remove('available');
-            cell.class
+       
