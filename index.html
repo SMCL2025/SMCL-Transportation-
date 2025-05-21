@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -143,6 +143,11 @@
       margin-top: 20px;
       border-radius: 10px;
     }
+
+    iframe {
+      border: none;
+      border-radius: 10px;
+    }
   </style>
 </head>
 <body>
@@ -154,6 +159,9 @@
         <li><a href="#home">Home</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#services">Services</a></li>
+        <li><a href="#schedule">Schedule</a></li>
+        <li><a href="#tracking">Tracking</a></li>
+        <li><a href="#reschedule">Reschedule</a></li> <!-- New Link -->
         <li><a href="#contact">Contact</a></li>
       </ul>
     </nav>
@@ -195,8 +203,7 @@
 
     <table>
       <tr>
-        <th>Driver Name</th>
-        <th>Vehicle Number</th>
+        <th>Vehicle</th>
         <th>Monday</th>
         <th>Tuesday</th>
         <th>Wednesday</th>
@@ -204,8 +211,7 @@
         <th>Friday</th>
       </tr>
       <tr>
-        <td>PEMA</td>
-        <td>BP-0B-1234</td>
+        <td>Van 1</td>
         <td class="available">Available</td>
         <td class="unavailable">Not Available</td>
         <td class="available">Available</td>
@@ -213,54 +219,23 @@
         <td class="unavailable">Not Available</td>
       </tr>
       <tr>
-        <td>TSHERING</td>
-        <td>BP-1B-3456</td>
-        <td class="available">Available</td>
+        <td>Truck 2</td>
         <td class="unavailable">Not Available</td>
         <td class="available">Available</td>
         <td class="available">Available</td>
         <td class="unavailable">Not Available</td>
-      </tr>
-      <tr>
-        <td>PELDEN</td>
-        <td>BP-2B-9087</td>
         <td class="available">Available</td>
-        <td class="unavailable">Not Available</td>
-        <td class="available">Available</td>
-        <td class="available">Available</td>
-        <td class="unavailable">Not Available</td>
-      </tr>
-      <tr>
-        <td>SONAM</td>
-        <td>BP-3B-4567</td>
-        <td class="available">Available</td>
-        <td class="unavailable">Not Available</td>
-        <td class="available">Available</td>
-        <td class="available">Available</td>
-        <td class="unavailable">Not Available</td>
-      </tr>
-      <tr>
-        <td>YANGCHEN</td>
-        <td>BP-3B-3456</td>
-        <td class="available">Available</td>
-        <td class="unavailable">Not Available</td>
-        <td class="available">Available</td>
-        <td class="available">Available</td>
-        <td class="unavailable">Not Available</td>
-      </tr>
-      <tr>
-        <td>TSHERING</td>
-        <td>BP-4B-3456</td>
-        <td class="available">Available</td>
-        <td class="unavailable">Not Available</td>
-        <td class="available">Available</td>
-        <td class="available">Available</td>
-        <td class="unavailable">Not Available</td>
       </tr>
     </table>
 
     <h3>Live Vehicle Location</h3>
     <div id="map"></div>
+  </section>
+
+  <section id="reschedule" class="section">
+    <h2>Reschedule Your Booking</h2>
+    <p>If your travel plans have changed, you can request a new booking date by submitting the form below:</p>
+    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfFVJLftwsziiBxYQv8/viewform?embedded=true" width="100%" height="800" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
   </section>
 
   <section id="feedback" class="section">
@@ -296,43 +271,23 @@
         });
       });
 
-      // Leaflet Map centered on Bhutan
+      // Leaflet Map
       const map = L.map('map').setView([27.5, 90.4], 7);
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; OpenStreetMap contributors'
       }).addTo(map);
 
-      // Example vehicle positions - replace with your actual data fetch
-      const exampleVehicles = [
-        { name: 'PEMA', latitude: 27.5, longitude: 90.4 },
-        { name: 'TSHERING', latitude: 27.6, longitude: 90.5 },
-        { name: 'PELDEN', latitude: 27.4, longitude: 90.3 },
-        { name: 'SONAM', latitude: 27.55, longitude: 90.45 },
-        { name: 'YANGCHEN', latitude: 27.45, longitude: 90.35 },
-        { name: 'TSHERING', latitude: 27.48, longitude: 90.38 }
+      // Placeholder for vehicle positions
+      // Replace with your own Traccar or API endpoint for live GPS tracking
+      const vehiclePositions = [
+        { name: "Van 1", latitude: 27.4728, longitude: 89.6390 },
+        { name: "Truck 2", latitude: 27.4833, longitude: 89.6500 }
       ];
 
-      exampleVehicles.forEach(vehicle => {
+      vehiclePositions.forEach(vehicle => {
         const marker = L.marker([vehicle.latitude, vehicle.longitude]).addTo(map);
         marker.bindPopup(`<strong>${vehicle.name}</strong><br>Lat: ${vehicle.latitude}<br>Lon: ${vehicle.longitude}`);
       });
-
-      // If you have an API endpoint for live data, replace the example above with fetch like this:
-      /*
-      fetch('https://your-api-url.com/api/positions')
-        .then(response => response.json())
-        .then(data => {
-          data.forEach(vehicle => {
-            const lat = vehicle.latitude;
-            const lon = vehicle.longitude;
-            const marker = L.marker([lat, lon]).addTo(map);
-            marker.bindPopup(`<strong>${vehicle.name || 'Vehicle'}</strong><br>Lat: ${lat}<br>Lon: ${lon}`);
-          });
-        })
-        .catch(err => {
-          console.error('Error fetching vehicle positions:', err);
-        });
-      */
     });
   </script>
 
