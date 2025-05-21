@@ -2,8 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>SMCL Vehicle Booking</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SMCL Portfolio</title>
+
+  <!-- Leaflet CSS for map -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
   <style>
     body {
       margin: 0;
@@ -11,6 +15,7 @@
       background-color: #f4f4f4;
       color: #333;
     }
+
     header {
       background-color: #004d40;
       color: #fff;
@@ -19,10 +24,12 @@
       justify-content: space-between;
       align-items: center;
     }
+
     .logo {
       font-size: 1.5em;
       font-weight: bold;
     }
+
     nav ul {
       list-style: none;
       display: flex;
@@ -30,11 +37,13 @@
       margin: 0;
       padding: 0;
     }
+
     nav a {
       color: white;
       text-decoration: none;
       font-weight: bold;
     }
+
     .hero {
       position: relative;
       background: url('https://source.unsplash.com/1600x600/?mining') no-repeat center center/cover;
@@ -45,6 +54,7 @@
       justify-content: center;
       text-align: center;
     }
+
     .hero::before {
       content: "";
       position: absolute;
@@ -52,20 +62,24 @@
       background-color: rgba(0, 0, 0, 0.6);
       z-index: 1;
     }
+
     .hero-content {
       position: relative;
       z-index: 2;
       padding: 2em;
     }
+
     .hero h1 {
       font-size: 2.5em;
       margin-bottom: 0.5em;
       text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
     }
+
     .hero p {
       font-size: 1.2em;
       text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
     }
+
     .section {
       padding: 2em;
       background-color: white;
@@ -74,16 +88,20 @@
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
+
     .section h2 {
       color: #004d40;
     }
+
     a {
       color: #00796b;
       text-decoration: none;
     }
+
     a:hover {
       text-decoration: underline;
     }
+
     footer {
       background-color: #004d40;
       color: white;
@@ -91,34 +109,42 @@
       padding: 1em 0;
       margin-top: 2em;
     }
+
     table {
       border-collapse: collapse;
       width: 100%;
       margin-top: 20px;
     }
+
     th, td {
       border: 1px solid #aaa;
       padding: 10px;
       text-align: center;
     }
+
     th {
       background-color: #f2f2f2;
     }
+
     .available {
       background-color: #c8f7c5;
       color: #2e7d32;
       font-weight: bold;
     }
+
     .unavailable {
       background-color: #ffcdd2;
       color: #c62828;
       font-weight: bold;
     }
-    iframe {
+
+    /* New styles for map container */
+    #map {
+      height: 400px;
       width: 100%;
-      height: 600px;
-      border: none;
       border-radius: 10px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.15);
+      margin-top: 1em;
     }
   </style>
 </head>
@@ -131,8 +157,6 @@
         <li><a href="#home">Home</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#services">Services</a></li>
-        <li><a href="#booking">Booking</a></li>
-        <li><a href="#tracking">Tracking</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
     </nav>
@@ -163,15 +187,15 @@
     </ul>
   </section>
 
-  <section id="booking" class="section">
-    <h2>Vehicle Booking Form</h2>
-    <!-- Embed your Google Form here -->
-    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSf_FakeGoogleFormID/viewform?embedded=true" 
-            frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+  <section id="schedule" class="section">
+    <h2>Schedule Your Vehicle</h2>
+    <p><a href="https://forms.gle/UomGZvKcZkmMK5j46" target="_blank">Click here to book your vehicle via Google Form</a></p>
   </section>
 
   <section id="tracking" class="section">
-    <h2>Track Vehicle Availability</h2>
+    <h2>Track & Schedule</h2>
+    <p>Status: <strong>Live Availability Below</strong></p>
+
     <table>
       <tr>
         <th>Vehicle</th>
@@ -200,15 +224,69 @@
     </table>
   </section>
 
+  <section id="feedback" class="section">
+    <h2>Feedback</h2>
+    <p><a href="https://forms.gle/xiRDxHdPwuLhmVZc8" target="_blank">Give us your feedback via Google Form</a></p>
+  </section>
+
   <section id="contact" class="section">
     <h2>Contact Us</h2>
     <p>Phone: 17754628</p>
     <p>Email: <a href="mailto:smcl@smcl.bt">smcl@smcl.bt</a></p>
   </section>
 
+  <!-- New Vehicle Tracking Section -->
+  <section id="vehicle-tracking" class="section">
+    <h2>Live Vehicle GPS Tracking</h2>
+    <p>Tracking simulated vehicle movement on the map below:</p>
+    <div id="map"></div>
+  </section>
+
   <footer>
     <p>&copy; 2025 State Mining Corporation Limited</p>
   </footer>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+  <script>
+    // Initialize the map
+    const map = L.map('map').setView([27.3949, 89.6372], 13); // Thimphu, Bhutan coords
+
+    // Add OpenStreetMap tiles
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Vehicle icon
+    const vehicleIcon = L.icon({
+      iconUrl: 'https://cdn-icons-png.flaticon.com/512/61/61212.png', // car icon
+      iconSize: [40, 40],
+      iconAnchor: [20, 20],
+    });
+
+    // Starting coordinates for vehicle
+    let vehicleLat = 27.3949;
+    let vehicleLng = 89.6372;
+
+    // Add marker for vehicle
+    const vehicleMarker = L.marker([vehicleLat, vehicleLng], {icon: vehicleIcon}).addTo(map)
+      .bindPopup('Vehicle is here').openPopup();
+
+    // Simulate vehicle movement every 3 seconds
+    function simulateMovement() {
+      const deltaLat = (Math.random() - 0.5) / 500;
+      const deltaLng = (Math.random() - 0.5) / 500;
+
+      vehicleLat += deltaLat;
+      vehicleLng += deltaLng;
+
+      vehicleMarker.setLatLng([vehicleLat, vehicleLng]);
+      map.panTo([vehicleLat, vehicleLng]);
+    }
+
+    setInterval(simulateMovement, 3000);
+  </script>
 
 </body>
 </html>
