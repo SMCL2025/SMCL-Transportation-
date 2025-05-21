@@ -1,319 +1,43 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SMCL Vehicle Booking</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f4f4f4;
-      color: #333;
-    }
-
-    header {
-      background-color: #004d40;
-      color: #fff;
-      padding: 1em 2em;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .logo {
-      font-size: 1.5em;
-      font-weight: bold;
-    }
-
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 1em;
-      margin: 0;
-      padding: 0;
-    }
-
-    nav a {
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .hero {
-      position: relative;
-      background: url('https://source.unsplash.com/1600x600/?mining') no-repeat center center/cover;
-      height: 400px;
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-    }
-
-    .hero::before {
-      content: "";
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background-color: rgba(0, 0, 0, 0.6);
-      z-index: 1;
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      padding: 2em;
-    }
-
-    .hero h1 {
-      font-size: 2.5em;
-      margin-bottom: 0.5em;
-      text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
-    }
-
-    .hero p {
-      font-size: 1.2em;
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
-    }
-
-    .section {
-      padding: 2em;
-      background-color: white;
-      margin: 1em auto;
-      max-width: 900px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .section h2 {
-      color: #004d40;
-    }
-
-    a {
-      color: #00796b;
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    footer {
-      background-color: #004d40;
-      color: white;
-      text-align: center;
-      padding: 1em 0;
-      margin-top: 2em;
-    }
-
-    table {
-      border-collapse: collapse;
-      width: 100%;
-      margin-top: 20px;
-    }
-
-    th, td {
-      border: 1px solid #aaa;
-      padding: 10px;
-      text-align: center;
-    }
-
-    th {
-      background-color: #f2f2f2;
-    }
-
-    .available {
-      background-color: #c8f7c5;
-      color: #2e7d32;
-      font-weight: bold;
-    }
-
-    .unavailable {
-      background-color: #ffcdd2;
-      color: #c62828;
-      font-weight: bold;
-    }
-
-    form {
-      display: grid;
-      gap: 1rem;
-    }
-
-    input, select, textarea {
-      width: 100%;
-      padding: 0.8rem;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-
-    .btn {
-      background-color: #004d40;
-      color: white;
-      padding: 0.8rem 1.5rem;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-  </style>
-
-  <!-- Leaflet CSS -->
-  <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet/dist/leaflet.css"
-  />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home | Vehicle Booking</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
-  <header>
-    <div class="logo">SMCL</div>
+  <header class="navbar">
+    <h1>Bhutan Vehicle Booking</h1>
     <nav>
-      <ul>
-        <li><a href="#home">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="#booking">Booking</a></li>
-        <li><a href="#tracking">Tracking</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
+      <a href="index.html">Home</a>
+      <a href="booking.html">Book Now</a>
     </nav>
   </header>
 
-  <section id="home" class="hero">
-    <div class="hero-content">
-      <h1>Welcome to State Mining Corporation Limited</h1>
-      <p>Your source for sustainable high-quality mineral resources in Bhutan.</p>
+  <section class="hero">
+    <h2>Explore Bhutan with Ease</h2>
+    <p>Book your vehicle online and travel comfortably anywhere in Bhutan.</p>
+    <a href="booking.html" class="btn">Book a Vehicle</a>
+  </section>
+
+  <section class="features">
+    <div class="feature-box">
+      <h3>Easy Booking</h3>
+      <p>Reserve vehicles in just a few clicks.</p>
+    </div>
+    <div class="feature-box">
+      <h3>Wide Coverage</h3>
+      <p>Travel to any district in Bhutan with our service.</p>
+    </div>
+    <div class="feature-box">
+      <h3>Trusted Drivers</h3>
+      <p>All drivers are certified and experienced.</p>
     </div>
   </section>
 
-  <section id="about" class="section">
-    <h2>About Us</h2>
-    <p>State Mining Corporation Limited offers minerals like coal, gypsum, dolomite and quartzite. Supporting industries with sustainable high quality resources.</p>
-    <h3>Vision</h3>
-    <p>Be the leading company in sustainable minerals resources management to distribute the national wealth to the people of Bhutan</p>
-    <h3>Mission</h3>
-    <p>Explore and develop mineral resources in a responsible manner for inter-generational equity</p>
-  </section>
-
-  <section id="services" class="section">
-    <h2>What Our Website Does</h2>
-    <ul>
-      <li>Book and schedule vehicles for transportation of minerals</li>
-      <li>Track current vehicle schedules and availability</li>
-      <li>Receive alerts and provide feedback</li>
-    </ul>
-  </section>
-
-  <section id="booking" class="section">
-    <h2>Vehicle Booking Form</h2>
-    <form>
-      <label for="name">Full Name</label>
-      <input type="text" id="name" name="name" required>
-
-      <label for="email">Email Address</label>
-      <input type="email" id="email" name="email" required>
-
-      <label for="phone">Contact Number</label>
-      <input type="tel" id="phone" name="phone" required>
-
-      <label for="pickup">Pickup Location</label>
-      <input type="text" id="pickup" name="pickup" required>
-
-      <label for="dropoff">Drop-off Location</label>
-      <input type="text" id="dropoff" name="dropoff" required>
-
-      <label for="vehicle">Select Vehicle</label>
-      <select id="vehicle" name="vehicle">
-        <option value="">-- Select --</option>
-        <option value="van">Van</option>
-        <option value="truck">Truck</option>
-        <option value="pickup">Pickup</option>
-      </select>
-
-      <label for="service">Type of Service</label>
-      <select id="service" name="service">
-        <option value="one-way">One-way</option>
-        <option value="round-trip">Round-trip</option>
-      </select>
-
-      <label for="passengers">Number of Passengers</label>
-      <input type="number" id="passengers" name="passengers" min="1" max="20">
-
-      <label for="date">Booking Date</label>
-      <input type="date" id="date" name="date" required>
-
-      <label for="notes">Special Notes</label>
-      <textarea id="notes" name="notes" rows="3"></textarea>
-
-      <button type="submit" class="btn">Submit Booking</button>
-    </form>
-  </section>
-
-  <section id="tracking" class="section">
-    <h2>Track Vehicle Availability</h2>
-    <table>
-      <tr>
-        <th>Vehicle</th>
-        <th>Monday</th>
-        <th>Tuesday</th>
-        <th>Wednesday</th>
-        <th>Thursday</th>
-        <th>Friday</th>
-      </tr>
-      <tr>
-        <td>Van 1</td>
-        <td class="available">Available</td>
-        <td class="unavailable">Not Available</td>
-        <td class="available">Available</td>
-        <td class="available">Available</td>
-        <td class="unavailable">Not Available</td>
-      </tr>
-      <tr>
-        <td>Truck 2</td>
-        <td class="unavailable">Not Available</td>
-        <td class="available">Available</td>
-        <td class="available">Available</td>
-        <td class="unavailable">Not Available</td>
-        <td class="available">Available</td>
-      </tr>
-    </table>
-
-    <h2>Vehicle Location Map</h2>
-    <div id="map" style="height: 400px; margin-top: 1em;"></div>
-  </section>
-
-  <section id="contact" class="section">
-    <h2>Contact Us</h2>
-    <p>Phone: 17754628</p>
-    <p>Email: <a href="mailto:smcl@smcl.bt">smcl@smcl.bt</a></p>
-  </section>
-
   <footer>
-    <p>&copy; 2025 State Mining Corporation Limited</p>
+    <p>&copy; 2025 Bhutan Vehicle Booking. All rights reserved.</p>
   </footer>
-
-  <!-- Leaflet JS -->
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-  <script>
-    // Initialize the map centered on Bhutan
-    var map = L.map('map').setView([27.4728, 89.6395], 8);
-
-    // Add OpenStreetMap tile layer
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '© OpenStreetMap contributors'
-    }).addTo(map);
-
-    // Example vehicles with coordinates (latitude, longitude)
-    var vehicles = [
-      { name: 'Van 1', coords: [27.4728, 89.6395] },       // Thimphu
-      { name: 'Truck 2', coords: [27.5142, 89.6226] }      // Nearby location
-    ];
-
-    // Add markers for each vehicle
-    vehicles.forEach(function(vehicle) {
-      L.marker(vehicle.coords)
-        .addTo(map)
-        .bindPopup(vehicle.name);
-    });
-  </script>
 </body>
 </html>
